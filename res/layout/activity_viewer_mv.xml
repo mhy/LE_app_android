@@ -1,0 +1,44 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:id="@+id/frmWebViewer"
+    tools:context=".ViewerActivity" >
+    
+<!--     <FrameLayout -->
+<!--         android:id="@+id/frmFullMv" -->
+<!--         android:layout_width="match_parent" -->
+<!--         android:layout_height="match_parent" -->
+<!--         android:background="#F222" -->
+<!--         android:visibility="gone" /> -->
+        
+    
+<!-- 	<LinearLayout  -->
+<!-- 	    android:layout_width="match_parent" -->
+<!-- 	    android:layout_height="wrap_content" -->
+<!-- 	    android:orientation="vertical"> -->
+<!--     	<Button -->
+<!--     	    android:id="@+id/btnPlay" -->
+<!--     	    android:visibility="gone" -->
+<!--     	    android:layout_width="wrap_content" -->
+<!--     	    android:layout_height="wrap_content" /> -->
+    
+<!--         <SurfaceView -->
+<!-- 	        android:id="@+id/svMv" -->
+<!-- 	        android:visibility="gone" -->
+<!-- 	        android:layout_width="match_parent" -->
+<!-- 	        android:layout_height="400dp" -->
+<!-- 	        android:background="#F333"  -->
+<!--             /> -->
+<!--     </LinearLayout> -->
+    
+    
+    <WebView
+        android:id="@+id/wbPageOriginal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</FrameLayout>
+

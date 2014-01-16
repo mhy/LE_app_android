@@ -1,0 +1,69 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="#FFF"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".MainActivity" >
+    
+    <ImageView
+        android:background="@drawable/logo"
+        android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:paddingBottom="10dp"
+        />
+    
+    <LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_marginLeft="30dp"
+	    android:layout_marginRight="30dp"
+    	android:gravity="center" >
+        
+        <EditText
+	        android:id="@+id/etKeyword"
+	        android:inputType="text"
+	        android:hint="@string/hint"
+	        android:textColor="#000"
+	        android:layout_weight="9"
+	        android:layout_width="0dp"
+	        android:layout_height="wrap_content" />
+    
+	    <ImageButton
+	        android:id="@+id/btnSubmit"
+	        android:background="@drawable/search_normal"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content" />
+    </LinearLayout>
+    
+    <RadioGroup
+        android:id="@+id/rbtnCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+        
+        <RadioButton 
+	        android:id="@+id/rbtnMv"
+	        android:paddingRight="40dp"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="MV"
+	        android:textColor="#000"
+	        android:checked="true" />
+        
+        <RadioButton 
+	        android:id="@+id/rbtnLyrics"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textColor="#000"
+	        android:text="Lyrics" />
+    </RadioGroup>
+    
+        
+
+</LinearLayout>
