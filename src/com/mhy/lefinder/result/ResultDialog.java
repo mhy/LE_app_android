@@ -7,14 +7,11 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Point;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -24,13 +21,12 @@ import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
+
 import com.mhy.lefinder.R;
 import com.mhy.lefinder.Request;
 import com.mhy.lefinder.SearchAsyncTask;
@@ -41,18 +37,17 @@ public class ResultDialog extends DialogFragment {
 	private ArrayList<Result> mResult;
 	private FragmentActivity mActivity;
 	private Dialog mDialog;
-	
 	private int mLastIndex;
-	private int mCurrentIndex;
+	private static int mCurrentIndex=1;
 	private String mDivision;
 	private Request mRequest;
-	
 	private ResultAdapter mAdapter;
 		
 	
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
+		Log.d("MHY", "onAttach "+mCurrentIndex);
 		Bundle args = getArguments();
 		
 		mActivity = (FragmentActivity) getActivity();
@@ -60,7 +55,6 @@ public class ResultDialog extends DialogFragment {
 		mAdapter = new ResultAdapter();
 		
 		mRequest = args.getParcelable("request");
-		mCurrentIndex = 1;
 		mLastIndex = args.getInt("lastpage");
 		mDivision = args.getString("division");
 	}
@@ -68,7 +62,29 @@ public class ResultDialog extends DialogFragment {
 	
 
 	@Override
+	public void onPause() {
+		Log.d("MHY", "11 "+mCurrentIndex);
+		// TODO Auto-generated method stub
+		super.onPause();
+	}
+
+
+
+	@Override
+	public void onResume() {
+		Log.d("MHY", "2 "+mCurrentIndex);
+		// TODO Auto-generated method stub
+		super.onResume();
+	}
+
+
+
+
+
+
+	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
+		Log.d("MHY", "onCreateDialog "+mCurrentIndex);
 		mDialog =  super.onCreateDialog(savedInstanceState);
 		mDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		mDialog.setContentView(R.layout.dialog_result);
@@ -242,8 +258,11 @@ public class ResultDialog extends DialogFragment {
 		@Override
 		protected void onPostExecute(ResultParser parser) {
 			super.onPostExecute(parser);
-			if(mResults.size()>0)
+			if(mResults.size()>0){
+//				mResult.clear();
+//				mResult.addAll(mResults);
 				mResult = mResults;
+			}
 			
 			setDialogHeight();
 		}
@@ -252,7 +271,7 @@ public class ResultDialog extends DialogFragment {
 		protected void showResult(Bundle args) {
 			mAdapter.notifyDataSetChanged();
 
-			ListView lvResult = (ListView)mDialog.findViewById(R.id.listResult);
+			ListView lvResult = (ListView)ResultDialog.this.mDialog.findViewById(R.id.listResult);
 			lvResult.setSelectionAfterHeaderView();
 			
 			refreshButton();
