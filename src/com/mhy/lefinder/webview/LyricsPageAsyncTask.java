@@ -28,15 +28,19 @@ import android.widget.TextView;
 import com.mhy.lefinder.R;
 import com.mhy.lefinder.util.BaseAsyncTask;
 
-public class ContentAsyncTask extends BaseAsyncTask<String, Void, Article> {
+
+/**
+ * write Lyrics content on the custom viewer
+ * @author mhy
+ *
+ */
+public class LyricsPageAsyncTask extends BaseAsyncTask<String, Void, Article> {
 	private final String FILENAME = "templyrics.html";
 	private WebView webview;
 	private HttpClient mClient;
 
-	public ContentAsyncTask(Activity act) {
+	public LyricsPageAsyncTask(Activity act) {
 		super(act);
-
-		mAct.setContentView(R.layout.activity_viewer_lyrics);
 		webview = (WebView) mAct.findViewById(R.id.wbPage);
 	}
 
@@ -51,8 +55,8 @@ public class ContentAsyncTask extends BaseAsyncTask<String, Void, Article> {
 	protected Article doInBackground(String... arg0) {
 		HttpEntity resEntity = null;
 		try {
-			HttpGet mGet = new HttpGet(arg0[0]);
-			HttpResponse response = mClient.execute(mGet);
+			HttpGet get = new HttpGet(arg0[0]);
+			HttpResponse response = mClient.execute(get);
 			resEntity = response.getEntity();
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
@@ -106,7 +110,7 @@ public class ContentAsyncTask extends BaseAsyncTask<String, Void, Article> {
 				public boolean shouldOverrideUrlLoading(WebView view, String url) {
 					try{
 						if (url.contains("hiphople.com/lyrics/")) { // case : lyrics of LE(전곡모음 핸들링용) //TODO url이 다음과 같지 않은 경우도있더라... (e.g.Yeezus 전곡모음) 이건 통일시켜달라고 건의해야 할듯
-							new ContentAsyncTask(mAct).execute(url);
+							new LyricsPageAsyncTask(mAct).execute(url);
 						} else { // case 2 : any url other than LE's lyrics  //content(참고자료용으로 네이버백과사전 링크를 걸어놨다든지), 2013.09.17 Article에서 youtube link를 핸들링함으로써 유투브 동영상url도 가능해짐.
 							Intent browserI = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
 							mAct.startActivity(browserI);

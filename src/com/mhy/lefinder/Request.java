@@ -34,14 +34,6 @@ public class Request implements Parcelable{
 		return category;
 	}
 	
-//	public void setKey(String key) {
-//		this.key = key;
-//	}
-
-//	public void setCategory(Category category) {
-//		this.category = category;
-//	}
-	
 	private void setKey(Activity act){
 		EditText etKey = (EditText)act.findViewById(R.id.etKeyword);
 		key = etKey.getText().toString();

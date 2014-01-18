@@ -52,7 +52,7 @@ public class ResultParser {
 
 				String url = data.substring(tokenUrl_helper.length(), data.indexOf("&"));
 								
-//				//When it comes to style-applied-title(bold, color, etc), remove it before parsing title
+//				//style-applied-title(bold, color, etc), remove them before parsing title
 				int iStyle = data.indexOf(tokenStyle);
 				if(iStyle != -1 && iStyle<100)
 					data = data.substring(tokenStyle.length()+iStyle, data.length());

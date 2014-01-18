@@ -85,24 +85,12 @@ public class ResultDialog extends DialogFragment {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				Intent i = new Intent();
-				switch(mRequest.getCategory()){
-					case LYRICS :
-						i.setClass(mActivity, ViewerActivity.class);
-						i.putExtra("result", mResult.get(position));
-						i.putExtra("request", mRequest);
-						i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
-						break;
-					case MV :
-						i.setAction(Intent.ACTION_VIEW);
-						i.setData(Uri.parse("http://www.hiphople.com/subtitle/"+mResult.get(position).getUrl()));
-						break;
-				}
 				
-				//TODO MV 동영상을 위해 browser를 구현해야 하나 실패, 그리하야  이 주석은 없에고, 위에처럼 단순히 url을 폰 내장 브라우저로 열게 만듦
-//				i.setClass(mActivity, ViewerActivity.class);
-//				i.putExtra("result", mResult.get(position));
-//				i.putExtra("request", mRequest);
+				i.setClass(mActivity, ViewerActivity.class);
+				i.putExtra("result", mResult.get(position));
+				i.putExtra("request", mRequest);
 //				i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
+				
 				startActivity(i);
 			}
 		});
