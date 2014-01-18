@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.webkit.WebView;
 
 import com.mhy.lefinder.R;
 import com.mhy.lefinder.Request;
@@ -15,6 +16,8 @@ public class ViewerActivity extends FragmentActivity {
 	private final static String MV = "subtitle/";
 	private final static String LYRICS = "lyrics/";
 	private Category mCategory;
+	private WebView mWebview;
+	private VimeoChromeClient vcc;
 	
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -23,10 +26,14 @@ public class ViewerActivity extends FragmentActivity {
 		Result result = getIntent().getParcelableExtra("result");
 		Request request = getIntent().getParcelableExtra("request");
 		
+		
 		mCategory = request.getCategory();
 		switch(mCategory){
 			case MV :
 				setContentView(R.layout.activity_viewer_mv);
+				vcc = new VimeoChromeClient(this);
+				mWebview = (WebView)findViewById(R.id.wbPageOriginal);	
+				mWebview.setWebChromeClient(vcc);
 				new MvPageAsyncTask(this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, URL+MV+result.getUrl());
 				break;
 			case LYRICS :
@@ -39,11 +46,11 @@ public class ViewerActivity extends FragmentActivity {
 	@Override
 	public void onBackPressed() {
 		Log.d("MHY", "onBackPressed");
-//		if(mCategory == Category.MV){
-//			Log.d("MHY", "onBackPressed KILL PROCESS calling for resource return");
-//			android.os.Process.killProcess(android.os.Process.myPid());
-//		}else
-			super.onBackPressed();
+		if(mCategory == Category.MV){
+			Log.d("MHY", "onBackPressed KILL PROCESS calling for resource return");
+			vcc.hideCustomView();
+		}
+		super.onBackPressed();
 	}
 	
 }

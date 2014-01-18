@@ -38,7 +38,7 @@ public class ResultDialog extends DialogFragment {
 	private FragmentActivity mActivity;
 	private Dialog mDialog;
 	private int mLastIndex;
-	private static int mCurrentIndex=1;
+	private static int mCurrentIndex;
 	private String mDivision;
 	private Request mRequest;
 	private ResultAdapter mAdapter;
@@ -46,8 +46,8 @@ public class ResultDialog extends DialogFragment {
 	
 	@Override
 	public void onAttach(Activity activity) {
+		Log.d("MHY", "onAttach "+this.hashCode() + "--"+this.getActivity().hashCode());
 		super.onAttach(activity);
-		Log.d("MHY", "onAttach "+mCurrentIndex);
 		Bundle args = getArguments();
 		
 		mActivity = (FragmentActivity) getActivity();
@@ -56,31 +56,9 @@ public class ResultDialog extends DialogFragment {
 		
 		mRequest = args.getParcelable("request");
 		mLastIndex = args.getInt("lastpage");
+		mCurrentIndex = 1;
 		mDivision = args.getString("division");
 	}
-
-	
-
-	@Override
-	public void onPause() {
-		Log.d("MHY", "11 "+mCurrentIndex);
-		// TODO Auto-generated method stub
-		super.onPause();
-	}
-
-
-
-	@Override
-	public void onResume() {
-		Log.d("MHY", "2 "+mCurrentIndex);
-		// TODO Auto-generated method stub
-		super.onResume();
-	}
-
-
-
-
-
 
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -259,8 +237,6 @@ public class ResultDialog extends DialogFragment {
 		protected void onPostExecute(ResultParser parser) {
 			super.onPostExecute(parser);
 			if(mResults.size()>0){
-//				mResult.clear();
-//				mResult.addAll(mResults);
 				mResult = mResults;
 			}
 			

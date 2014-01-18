@@ -71,8 +71,6 @@ public class MvPageAsyncTask extends BaseAsyncTask<String, Void, String> {
 		if(vId != null){
 			mWebview = (WebView)mAct.findViewById(R.id.wbPageOriginal);	
 			mWebview.getSettings().setJavaScriptEnabled(true);
-			mWebview.setWebChromeClient(new ViewerChromeClient(mAct));
-			
 			mWebview.loadUrl("http://hiphople.com/lyrics/266181");	//just a random page to obtain privilege to play vimeo. lighter a random page is, more performance we get. 
 			final String javascript = String.format("javascript:window.open(\"http://player.vimeo.com/video/%s\",\"_self\")", vId);
 			
