@@ -7,8 +7,8 @@ import android.util.Log;
 import android.webkit.WebView;
 
 import com.mhy.lefinder.R;
-import com.mhy.lefinder.Request;
-import com.mhy.lefinder.SearchAsyncTask.Category;
+import com.mhy.lefinder.fragment.search.Request;
+import com.mhy.lefinder.fragment.search.SearchAsyncTask.Category;
 import com.mhy.lefinder.result.Result;
 
 public class ViewerActivity extends FragmentActivity {

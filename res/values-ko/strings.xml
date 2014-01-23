@@ -14,5 +14,11 @@
     <string name="mobiledata">모바일 네트워크</string>
     <string name="nokeyword">키워드가 없습니다</string>
     <string name="noresult">검색 결과가 없습니다</string>
+    <string name="actionbar_title_search">검색</string>
+    <string name="actionbar_title_subtitle">자막뮤비</string>
+    <string name="actionbar_title_lyrics">가사해석</string>
+    <string name="board_sync_process">잠시만 기다려주세요..</string>
+    <string name="board_sync_success">마지막 동기화</string>
+    <string name="board_sync_fail">동기화 실패. 다시 시도하세요.</string>
     
 </resources>

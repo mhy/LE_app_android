@@ -14,7 +14,9 @@ import org.apache.http.util.EntityUtils;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.DialogInterface.OnCancelListener;
 import android.net.Uri;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -36,6 +38,15 @@ public class MvPageAsyncTask extends BaseAsyncTask<String, Void, String> {
 	protected void onPreExecute() {
 		super.onPreExecute();
 		mClient = new DefaultHttpClient();
+		
+		mDialog.setOnCancelListener(new OnCancelListener() {
+			
+			@Override
+			public void onCancel(DialogInterface dialog) {
+				cancel(true);
+				mAct.finish();
+			}
+		});
 	}
 
 	@Override

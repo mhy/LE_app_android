@@ -6,7 +6,6 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Field;
-
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -14,22 +13,20 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
-
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.DialogInterface.OnCancelListener;
 import android.net.Uri;
 import android.text.TextUtils.TruncateAt;
 import android.util.Log;
 import android.webkit.WebSettings.LayoutAlgorithm;
-import android.webkit.WebSettings.PluginState;
-import android.webkit.WebSettings.RenderPriority;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.TextView;
-
 import com.mhy.lefinder.R;
-import com.mhy.lefinder.Request;
-import com.mhy.lefinder.SearchAsyncTask.Category;
+import com.mhy.lefinder.fragment.search.Request;
+import com.mhy.lefinder.fragment.search.SearchAsyncTask.Category;
 import com.mhy.lefinder.result.Result;
 import com.mhy.lefinder.util.BaseAsyncTask;
 
@@ -52,8 +49,16 @@ public class LyricsPageAsyncTask extends BaseAsyncTask<String, Void, Article> {
 	@Override
 	protected void onPreExecute() {
 		super.onPreExecute();
-
 		mClient = new DefaultHttpClient();
+		
+		mDialog.setOnCancelListener(new OnCancelListener() {
+			
+			@Override
+			public void onCancel(DialogInterface dialog) {
+				cancel(true);
+				mAct.finish();
+			}
+		});
 	}
 
 	@Override
@@ -100,11 +105,11 @@ public class LyricsPageAsyncTask extends BaseAsyncTask<String, Void, Article> {
 			tvTitle.setEllipsize(TruncateAt.MARQUEE);
 			setMarquee(tvTitle);
 
-			webview.getSettings().setRenderPriority(RenderPriority.HIGH);
+//			webview.getSettings().setRenderPriority(RenderPriority.HIGH);
 			webview.getSettings().setDefaultTextEncodingName("utf-8");
 			webview.getSettings().setLayoutAlgorithm(LayoutAlgorithm.SINGLE_COLUMN); // for scaling huge-imgs on webview
 			
-			webview.getSettings().setPluginState(PluginState.ON);
+//			webview.getSettings().setPluginState(PluginState.ON);
 			webview.getSettings().setJavaScriptEnabled(true);
 			webview.getSettings().setBuiltInZoomControls(true);
 //	        webview.getSettings().setUserAgentString("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/534.36 (KHTML, like Gecko) Chrome/13.0.766.0 Safari/534.36");

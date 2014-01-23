@@ -11,7 +11,6 @@ import android.graphics.Point;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -28,9 +27,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.mhy.lefinder.R;
-import com.mhy.lefinder.Request;
-import com.mhy.lefinder.SearchAsyncTask;
-import com.mhy.lefinder.util.ResultParser;
+import com.mhy.lefinder.fragment.search.Request;
+import com.mhy.lefinder.fragment.search.SearchAsyncTask;
+import com.mhy.lefinder.fragment.search.SearchResultParser;
 import com.mhy.lefinder.webview.ViewerActivity;
 
 public class ResultDialog extends DialogFragment {
@@ -46,7 +45,6 @@ public class ResultDialog extends DialogFragment {
 	
 	@Override
 	public void onAttach(Activity activity) {
-		Log.d("MHY", "onAttach "+this.hashCode() + "--"+this.getActivity().hashCode());
 		super.onAttach(activity);
 		Bundle args = getArguments();
 		
@@ -62,7 +60,6 @@ public class ResultDialog extends DialogFragment {
 
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
-		Log.d("MHY", "onCreateDialog "+mCurrentIndex);
 		mDialog =  super.onCreateDialog(savedInstanceState);
 		mDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		mDialog.setContentView(R.layout.dialog_result);
@@ -234,7 +231,7 @@ public class ResultDialog extends DialogFragment {
 		}
 		
 		@Override
-		protected void onPostExecute(ResultParser parser) {
+		protected void onPostExecute(SearchResultParser parser) {
 			super.onPostExecute(parser);
 			if(mResults.size()>0){
 				mResult = mResults;

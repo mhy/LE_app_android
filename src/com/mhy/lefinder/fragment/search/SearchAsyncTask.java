@@ -1,7 +1,8 @@
-package com.mhy.lefinder;
+package com.mhy.lefinder.fragment.search;
 
 import java.io.IOException;
 import java.util.ArrayList;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -9,15 +10,19 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
+
 import android.app.Activity;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.os.Bundle;
 import android.widget.Toast;
+
+import com.mhy.lefinder.R;
 import com.mhy.lefinder.result.Result;
 import com.mhy.lefinder.result.ResultDialog;
 import com.mhy.lefinder.util.BaseAsyncTask;
-import com.mhy.lefinder.util.ResultParser;
 
-public class SearchAsyncTask extends BaseAsyncTask<String, Void, ResultParser> {
+public class SearchAsyncTask extends BaseAsyncTask<String, Void, SearchResultParser> {
 	public enum Category{MV, LYRICS}
 	
 	protected final String BASEURL = "http://www.hiphople.com/?mid=";
@@ -43,10 +48,18 @@ public class SearchAsyncTask extends BaseAsyncTask<String, Void, ResultParser> {
 		
 		mClient = new DefaultHttpClient();
 		actionUrl = getActionUrl(request);
+		
+		mDialog.setOnCancelListener(new OnCancelListener() {
+			
+			@Override
+			public void onCancel(DialogInterface dialog) {
+				cancel(true);
+			}
+		});
 	}
 
 	@Override
-	protected ResultParser doInBackground(String... arg0) {
+	protected SearchResultParser doInBackground(String... arg0) {
 		HttpEntity resEntity = null;
 		try {
 			mGet = new HttpGet(actionUrl);
@@ -67,7 +80,7 @@ public class SearchAsyncTask extends BaseAsyncTask<String, Void, ResultParser> {
 				int b = result.lastIndexOf("<td class=\"title\">");
 				result = result.substring(a, b);
 				
-				ResultParser parser = new ResultParser(result, request);
+				SearchResultParser parser = new SearchResultParser(result, request);
 				return parser;
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -79,7 +92,7 @@ public class SearchAsyncTask extends BaseAsyncTask<String, Void, ResultParser> {
 	}
 
 	@Override
-	protected void onPostExecute(ResultParser parser) {
+	protected void onPostExecute(SearchResultParser parser) {
 		super.onPostExecute(parser);
 		
 		if(parser!=null){

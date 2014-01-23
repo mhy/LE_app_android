@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
+import android.webkit.WebView;
 import android.widget.FrameLayout;
 import com.mhy.lefinder.R;
 
@@ -29,8 +30,11 @@ public class VimeoChromeClient extends WebChromeClient {
 		mFrame = new FrameLayout(mAct);
 		mFrame.setLayoutParams(COVER_SCREEN_PARAMS);
 		mFrame.setBackgroundColor(Color.BLACK);
-		
 		mFrame.addView(view);
+		
+		WebView webview = (WebView) mAct.findViewById(R.id.wbPageOriginal);
+		webview.setVisibility(View.GONE);
+		
 		FrameLayout mainFrame = (FrameLayout) mAct.findViewById(R.id.frmWebViewer);
 		mainFrame.addView(mFrame);
 		

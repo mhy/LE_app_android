@@ -13,5 +13,12 @@
     <string name="mobiledata">Mobile Network</string>
     <string name="nokeyword">No keyword</string>
     <string name="noresult">No result</string>
+    <string name="actionbar_title_search">Search</string>
+    <string name="actionbar_title_subtitle">Subtitle MV</string>
+    <string name="actionbar_title_lyrics">Lyrics</string>
+    <string name="board_sync_process">Please wait..</string>
+    <string name="board_sync_success">Last Sync</string>
+    <string name="board_sync_fail">Sync Failed. Please retry.</string>
+    
 
 </resources>

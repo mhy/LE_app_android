@@ -1,11 +1,13 @@
-package com.mhy.lefinder;
+package com.mhy.lefinder.fragment.search;
 
 import android.app.Activity;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.widget.EditText;
 import android.widget.RadioGroup;
-import com.mhy.lefinder.SearchAsyncTask.Category;
+
+import com.mhy.lefinder.R;
+import com.mhy.lefinder.fragment.search.SearchAsyncTask.Category;
 
 public class Request implements Parcelable{	
 	private String key;

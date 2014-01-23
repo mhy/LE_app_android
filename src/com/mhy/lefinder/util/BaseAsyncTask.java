@@ -16,7 +16,6 @@ public class BaseAsyncTask<T1, T2, T3> extends AsyncTask<T1, T2, T3> {
 	protected void onPreExecute() {
 		super.onPreExecute();
 		mDialog = new BaseDialog(mAct, R.layout.dialog_progress);
-		mDialog.setCancelable(false);
 		mDialog.show();
 	}
 

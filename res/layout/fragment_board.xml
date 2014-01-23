@@ -1,0 +1,48 @@
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="5dp"
+    android:orientation="vertical">
+    
+    <RelativeLayout
+    	android:layout_width="match_parent"
+    	android:layout_height="0dp"
+    	android:layout_weight="1"
+    	android:background="@drawable/border_round"
+        >
+        <TextView 
+            android:id="@+id/tvBoardNoti"
+            android:text="@string/board_sync_process"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            />
+        
+        <Button
+            android:id="@+id/btnRefresh"
+            android:text="refresh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            />
+    </RelativeLayout>
+    
+    <ListView
+    android:id="@+id/listBoard"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="9"
+    android:divider="#5000"
+    android:dividerHeight="1dp" />
+    
+    
+    
+    
+    
+    
+</LinearLayout>
