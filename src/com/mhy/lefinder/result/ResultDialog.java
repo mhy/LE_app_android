@@ -65,7 +65,7 @@ public class ResultDialog extends DialogFragment {
 		mDialog.setContentView(R.layout.dialog_result);
 		mDialog.setCancelable(false);
 		mDialog.setCanceledOnTouchOutside(false);
-		mDialog.getWindow().setBackgroundDrawableResource(R.drawable.dialog);
+		mDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 		
 		setDialogHeight();
 		
@@ -133,8 +133,8 @@ public class ResultDialog extends DialogFragment {
 		Point res = new Point();
 		mActivity.getWindowManager().getDefaultDisplay().getSize(res);
 		
-		int x = (int) (res.x * 0.8);		
-		int y =  (mResult.size()<8 ? LayoutParams.WRAP_CONTENT : (int)(res.y * 0.8));	//a better height value for good-looking dialog
+		int x = (int) (res.x * 0.9);		
+		int y =  (mResult.size()<8 ? LayoutParams.WRAP_CONTENT : (int)(res.y * 0.9));	//a better height value for good-looking dialog
 		
 		mDialog.getWindow().setLayout(x, y);
 	}

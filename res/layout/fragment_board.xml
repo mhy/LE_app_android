@@ -7,8 +7,7 @@
     
     <RelativeLayout
     	android:layout_width="match_parent"
-    	android:layout_height="0dp"
-    	android:layout_weight="1"
+    	android:layout_height="40dp"
     	android:background="@drawable/border_round"
         >
         <TextView 
@@ -35,8 +34,9 @@
     <ListView
     android:id="@+id/listBoard"
     android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="9"
+    android:layout_height="match_parent"
+    android:background="@drawable/border_round_white"
+    android:padding="10dp"
     android:divider="#5000"
     android:dividerHeight="1dp" />
     
