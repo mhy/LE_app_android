@@ -3,6 +3,7 @@ package com.mhy.lefinder.fragment.board;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -10,13 +11,14 @@ import android.os.AsyncTask.Status;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -49,12 +51,22 @@ public class FgmtBoard extends Fragment {
 				break;
 		}
 
-		Button btnRefresh = (Button) mRootView.findViewById(R.id.btnRefresh);
-		btnRefresh.setOnClickListener(new OnClickListener() {
+		final ImageButton btnRefresh = (ImageButton) mRootView.findViewById(R.id.btnRefresh);
+		btnRefresh.setOnTouchListener(new OnTouchListener() {
+			
 			@Override
-			public void onClick(View v) {
-				mReadPostAsync = new ReadPostingAsyncTask(FgmtBoard.this, mCategory);
-				mReadPostAsync.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, null);
+			public boolean onTouch(View v, MotionEvent event) {
+				switch(event.getAction()){
+					case MotionEvent.ACTION_DOWN :
+						btnRefresh.setBackgroundResource(R.drawable.refresh_clicked);
+						break;
+					case MotionEvent.ACTION_UP :
+						btnRefresh.setBackgroundResource(R.drawable.refresh_normal);
+						mReadPostAsync = new ReadPostingAsyncTask(FgmtBoard.this, mCategory);
+						mReadPostAsync.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, null);
+						break;
+				}
+				return false;
 			}
 		});
 		

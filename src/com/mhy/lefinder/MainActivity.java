@@ -68,11 +68,17 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 			public void onPageScrollStateChanged(int arg0) { }
 		});
 		
+		//setting tab-image
+		int img[] = new int[3];
+		img[0] = R.drawable.tab_search;
+		img[1] = R.drawable.tab_subtitlemv;
+		img[2] = R.drawable.tab_lyrics;
+		
 		//creating tabs
 		for (int i = 0; i < mAdapter.getCount(); i++) {
             mActionBar.addTab(
 					mActionBar.newTab()
-                            .setIcon(R.drawable.close_normal)	//TODO TEST : putting custom icon
+                            .setIcon(img[i])	//TODO TEST : putting custom icon
                             .setTabListener(this));
         }
 		

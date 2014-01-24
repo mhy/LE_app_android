@@ -20,9 +20,9 @@
             android:layout_alignParentLeft="true"
             />
         
-        <Button
+        <ImageButton
             android:id="@+id/btnRefresh"
-            android:text="refresh"
+            android:background="@drawable/refresh_normal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
