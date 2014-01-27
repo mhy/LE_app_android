@@ -1,22 +1,21 @@
-package com.mhy.lefinder.util;
+package com.mhy.lefinder.fragment.search;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import android.util.Log;
-import com.mhy.lefinder.Request;
-import com.mhy.lefinder.SearchAsyncTask.Category;
-import com.mhy.lefinder.result.Result;
 
-public class ResultParser {	
+import com.mhy.lefinder.result.Result;
+import com.mhy.lefinder.util.LEFException;
+
+public class SearchResultParser {	
 	private String mData;
 	private ArrayList<Result> mParsedData;
 	private int mLast;
 	private String mDiv;
 	
-	public ResultParser(String data, Request req) throws LEFException{
+	public SearchResultParser(String data, Request req) throws LEFException{
 		mData = data;
-		mParsedData = parseData(req);
+		mParsedData = parseData();
 		setPageNumber(req);
 	}
 	
@@ -28,6 +27,10 @@ public class ResultParser {
 		return mParsedData;
 	}
 	
+	public String getData(){
+		return mData;
+	}
+	
 	public int getLastIndex(){
 		return mLast;
 	}
@@ -36,7 +39,7 @@ public class ResultParser {
 		return mDiv;
 	}
 	
-	private ArrayList<Result> parseData(Request req) throws LEFException{
+	protected ArrayList<Result> parseData() throws LEFException{
 		try{
 			String tokenItem = "data-viewer";
 			String tokenUrl_helper = "document_srl=";
@@ -52,7 +55,7 @@ public class ResultParser {
 
 				String url = data.substring(tokenUrl_helper.length(), data.indexOf("&"));
 								
-//				//When it comes to style-applied-title(bold, color, etc), remove it before parsing title
+//				//style-applied-title(bold, color, etc), remove them before parsing title
 				int iStyle = data.indexOf(tokenStyle);
 				if(iStyle != -1 && iStyle<100)
 					data = data.substring(tokenStyle.length()+iStyle, data.length());
@@ -61,6 +64,7 @@ public class ResultParser {
 				String title = data.substring(data.indexOf(">")+1, data.indexOf("<"));
 				title = title.replaceAll("\t", "");
 				title = title.replaceAll("amp;", "");
+				title = title.replace("&quot;", "\"");
 				title = title.replaceAll("\n", "");
 				
 				result.add(new Result(title, url));
@@ -76,7 +80,7 @@ public class ResultParser {
 		}
 	}
 	
-	private void setPageNumber(Request req){
+	protected void setPageNumber(Request req){
 		switch(req.getCategory()){
 			case MV :{
 				String data = String.copyValueOf(mData.toCharArray());

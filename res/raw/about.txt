@@ -1,6 +1,6 @@
 <h1><b>HiphopLE The App</b></h1>
 
-Version 1.0<br>
+Version 2.0<br>
 www.hiphople.com<br><br>
-feedback : mhy.developer@gmail.com<br><br>
+feedback<br>mhy.developer@gmail.com<br><br>
 2013 MHY All rights reserved.

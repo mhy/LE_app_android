@@ -7,11 +7,7 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Point;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -24,29 +20,26 @@ import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
+
 import com.mhy.lefinder.R;
-import com.mhy.lefinder.Request;
-import com.mhy.lefinder.SearchAsyncTask;
-import com.mhy.lefinder.util.ResultParser;
+import com.mhy.lefinder.fragment.search.Request;
+import com.mhy.lefinder.fragment.search.SearchAsyncTask;
+import com.mhy.lefinder.fragment.search.SearchResultParser;
 import com.mhy.lefinder.webview.ViewerActivity;
 
 public class ResultDialog extends DialogFragment {
 	private ArrayList<Result> mResult;
 	private FragmentActivity mActivity;
 	private Dialog mDialog;
-	
 	private int mLastIndex;
-	private int mCurrentIndex;
+	private static int mCurrentIndex;
 	private String mDivision;
 	private Request mRequest;
-	
 	private ResultAdapter mAdapter;
 		
 	
@@ -60,12 +53,10 @@ public class ResultDialog extends DialogFragment {
 		mAdapter = new ResultAdapter();
 		
 		mRequest = args.getParcelable("request");
-		mCurrentIndex = 1;
 		mLastIndex = args.getInt("lastpage");
+		mCurrentIndex = 1;
 		mDivision = args.getString("division");
 	}
-
-	
 
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -74,7 +65,7 @@ public class ResultDialog extends DialogFragment {
 		mDialog.setContentView(R.layout.dialog_result);
 		mDialog.setCancelable(false);
 		mDialog.setCanceledOnTouchOutside(false);
-		mDialog.getWindow().setBackgroundDrawableResource(R.drawable.dialog);
+		mDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 		
 		setDialogHeight();
 		
@@ -85,24 +76,12 @@ public class ResultDialog extends DialogFragment {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				Intent i = new Intent();
-				switch(mRequest.getCategory()){
-					case LYRICS :
-						i.setClass(mActivity, ViewerActivity.class);
-						i.putExtra("result", mResult.get(position));
-						i.putExtra("request", mRequest);
-						i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
-						break;
-					case MV :
-						i.setAction(Intent.ACTION_VIEW);
-						i.setData(Uri.parse("http://www.hiphople.com/subtitle/"+mResult.get(position).getUrl()));
-						break;
-				}
 				
-				//TODO MV 동영상을 위해 browser를 구현해야 하나 실패, 그리하야  이 주석은 없에고, 위에처럼 단순히 url을 폰 내장 브라우저로 열게 만듦
-//				i.setClass(mActivity, ViewerActivity.class);
-//				i.putExtra("result", mResult.get(position));
-//				i.putExtra("request", mRequest);
+				i.setClass(mActivity, ViewerActivity.class);
+				i.putExtra("result", mResult.get(position));
+				i.putExtra("request", mRequest);
 //				i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
+				
 				startActivity(i);
 			}
 		});
@@ -154,8 +133,8 @@ public class ResultDialog extends DialogFragment {
 		Point res = new Point();
 		mActivity.getWindowManager().getDefaultDisplay().getSize(res);
 		
-		int x = (int) (res.x * 0.8);		
-		int y =  (mResult.size()<8 ? LayoutParams.WRAP_CONTENT : (int)(res.y * 0.8));	//a better height value for good-looking dialog
+		int x = (int) (res.x * 0.9);		
+		int y =  (mResult.size()<8 ? LayoutParams.WRAP_CONTENT : (int)(res.y * 0.9));	//a better height value for good-looking dialog
 		
 		mDialog.getWindow().setLayout(x, y);
 	}
@@ -252,10 +231,11 @@ public class ResultDialog extends DialogFragment {
 		}
 		
 		@Override
-		protected void onPostExecute(ResultParser parser) {
+		protected void onPostExecute(SearchResultParser parser) {
 			super.onPostExecute(parser);
-			if(mResults.size()>0)
+			if(mResults.size()>0){
 				mResult = mResults;
+			}
 			
 			setDialogHeight();
 		}
@@ -264,7 +244,7 @@ public class ResultDialog extends DialogFragment {
 		protected void showResult(Bundle args) {
 			mAdapter.notifyDataSetChanged();
 
-			ListView lvResult = (ListView)mDialog.findViewById(R.id.listResult);
+			ListView lvResult = (ListView)ResultDialog.this.mDialog.findViewById(R.id.listResult);
 			lvResult.setSelectionAfterHeaderView();
 			
 			refreshButton();

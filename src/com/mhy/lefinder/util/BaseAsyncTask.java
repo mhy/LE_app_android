@@ -6,7 +6,7 @@ import android.os.AsyncTask;
 
 public class BaseAsyncTask<T1, T2, T3> extends AsyncTask<T1, T2, T3> {
 	protected Activity mAct;
-	BaseDialog mDialog;
+	protected BaseDialog mDialog;
 	
 	public BaseAsyncTask(Activity act) {
 		mAct = act;

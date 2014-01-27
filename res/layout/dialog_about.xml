@@ -4,12 +4,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center_vertical|center_horizontal"
-    android:background="#55000000" >
+    android:background="@android:color/transparent" >
     
     <LinearLayout 
-        android:layout_width="280dp"
+        android:layout_width="320dp"
         android:layout_height="35dp"
-        android:background="@drawable/dialog_upper"
+    	android:background="@android:color/transparent"
         android:gravity="right"
         >
 	        <ImageButton
@@ -24,9 +24,9 @@
 
     
     <LinearLayout
-        android:layout_width="280dp"
+        android:layout_width="240dp"
         android:layout_height="wrap_content"
-        android:background="#FFF">
+        android:background="@drawable/dialog">
             
         <TextView 
             android:id="@+id/tvAbout"
@@ -36,11 +36,6 @@
             android:layout_height="wrap_content"/>
 	        
     </LinearLayout>
-    
-    <LinearLayout 
-        android:layout_width="280dp"
-        android:layout_height="35dp"
-        android:background="@drawable/dialog_lower">
-    </LinearLayout>
+
       
 </LinearLayout>
