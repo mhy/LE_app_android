@@ -21,10 +21,26 @@ public class VimeoChromeClient extends WebChromeClient {
 	public VimeoChromeClient(Activity act) {
 		mAct = act;
 	}
+	
+	
+
+	@Override
+	public void onHideCustomView() {
+		super.onHideCustomView();
+		
+		//2014.01.27 bug fix on KITKAT closing video player
+		if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT){
+			Log.w("MHY","KITKAT - Video player and Activity is closing");
+			mAct.finish();WebView webview = (WebView) mAct.findViewById(R.id.wbPageOriginal);
+			webview.loadUrl("http://");
+		}
+		
+	}
+
+
 
 	@Override
 	public void onShowCustomView(View view, CustomViewCallback callback) {
-		Log.d("MHY","show");
 		mCallback = callback;
 		super.onShowCustomView(view, callback);
 		mFrame = new FrameLayout(mAct);
